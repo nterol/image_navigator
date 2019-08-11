@@ -11,7 +11,7 @@ function RawFetchController({ fetchAPI, error }) {
   }, [error]);
 
   useEffect(() => {
-    fetchAPI();
+    shouldFetch && fetchAPI();
   }, [fetchAPI, shouldFetch]);
 
   useEffect(() => {

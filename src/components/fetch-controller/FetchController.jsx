@@ -7,12 +7,12 @@ function RawFetchController({ fetchAPI, error }) {
   const [shouldFetch, setShouldFetch] = useState(true);
 
   useEffect(() => {
-    if (error) setShouldFetch(false);
-  }, [error]);
-
-  useEffect(() => {
     shouldFetch && fetchAPI();
   }, [fetchAPI, shouldFetch]);
+
+  useEffect(() => {
+    if (error) setShouldFetch(false);
+  }, [error]);
 
   useEffect(() => {
     const interval = window.setInterval(() => {

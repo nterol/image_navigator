@@ -1,11 +1,14 @@
 import React from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
-import store from "./redux/store";
+import createStore from "./redux/store";
 
 import Main from "./components/Main";
 import GlobalStyle from "./styles";
 import Menu from "./components/Menu";
+
+const { store, persistor } = createStore();
 
 export const RawApp = () => (
   <>
@@ -18,7 +21,9 @@ export const RawApp = () => (
 function App() {
   return (
     <Provider store={store}>
-      <RawApp />
+      <PersistGate loading={null} persistor={persistor}>
+        <RawApp />
+      </PersistGate>
     </Provider>
   );
 }

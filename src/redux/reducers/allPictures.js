@@ -1,16 +1,22 @@
 import fetchTypes from "../types/fetchTypes";
 
-const allPictures = { picturesList: [], error: false, page: 1 };
+const allPictures = { picturesList: [], error: false };
+
+function removeDuplicates(myArr, prop) {
+  return myArr.filter((obj, pos, arr) => {
+    return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+  });
+}
 
 function allPicturesReducer(state = allPictures, { type, payload }) {
   switch (type) {
     case fetchTypes.ADD_PICTURES: {
-      const newAllPictures = [...new Set([...state.picturesList, ...payload])];
+      const newList = [...state.picturesList, ...payload];
+      const picturesList = removeDuplicates(newList, "id");
 
       return {
-        picturesList: newAllPictures,
-        error: false,
-        page: state.page + 1
+        picturesList,
+        error: false
       };
     }
     case fetchTypes.FETCH_FAIL: {

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background: ${props => props.color};
+  border-radius: 6px;
 `;
 
 const IMG = styled.img`

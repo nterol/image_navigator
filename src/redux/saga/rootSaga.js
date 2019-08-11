@@ -5,7 +5,7 @@ import { failFetch } from "../actions";
 import fetchTypes from "../types/fetchTypes";
 import savedTypes from "../types/savedTypes";
 
-const getPage = ({ allPictures: { page } }) => page;
+const getPage = ({ page }) => page;
 
 const getPicture = ({ allPictures: { picturesList } }, id) => {
   return picturesList.filter(picture => picture.id === id)[0];

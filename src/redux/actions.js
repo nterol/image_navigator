@@ -3,8 +3,6 @@ import savedTypes from "./types/savedTypes";
 
 export const fetchFromAPI = () => ({ type: fetchTypes.FETCH_IMAGES });
 
-export const errorReset = () => ({ type: fetchTypes.RESET_ERROR });
-
 export const addPictures = payload => ({
   type: fetchTypes.ADD_PICTURES,
   payload

@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import { Container, ButtonController } from "./styles";
 import ControllerConnect from "./controllerConnect";
 
-function RawFetchController({ fetchAPI, error, resetError }) {
+function RawFetchController({ fetchAPI, error }) {
   const [shouldFetch, setShouldFetch] = useState(true);
+
+  useEffect(() => {
+    if (error) setShouldFetch(false);
+  }, [error]);
 
   useEffect(() => {
     fetchAPI();

@@ -16,10 +16,6 @@ function allPicturesReducer(state = allPictures, { type, payload }) {
     case fetchTypes.FETCH_FAIL: {
       return { ...state, error: true };
     }
-
-    case fetchTypes.RESET_ERROR: {
-      return { ...state, error: false, page: allPictures.page };
-    }
     default:
       return state;
   }

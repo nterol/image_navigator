@@ -2,18 +2,24 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: 1px solid blue;
+  background: ${props => props.color};
 `;
 
 const IMG = styled.img`
-  width: 150px;
-  height: 200px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: ${props => props.color};
+  border-radius: 6px;
 `;
 
 function Picture(props) {
+  const pictureClick = () => props.handleClick(props.id);
+
   return (
-    <Container>
-      <IMG src={props.src} />
+    <Container color={props.color}>
+      <IMG src={props.urls.small} onClick={pictureClick} />
     </Container>
   );
 }

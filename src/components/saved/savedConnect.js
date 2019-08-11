@@ -7,7 +7,7 @@ const mapState = ({ savedPictures }) => ({
 });
 
 const mapDispatch = dispatch => ({
-  deletePicture: () => dispatch(deletePicture())
+  deletePicture: id => dispatch(deletePicture(id))
 });
 
 const SavedConnect = connect(

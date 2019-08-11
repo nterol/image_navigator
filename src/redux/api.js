@@ -1,14 +1,18 @@
 import axios from "axios";
 
-async function fetchImages() {
+async function fetchImages(page) {
+  console.log(page);
   try {
-    const { data } = axios({
+    const { data } = await axios({
       method: "get",
-      url: "https://api.unsplash.com/photos",
+      url: `https://api.unsplash.com/photos?page=${page}`,
+
       headers: {
-        Authorization: `Clint-ID ${process.env.REACT_APP_ACCESS_TOKEN}`
+        Authorization: `Client-ID ${process.env.REACT_APP_ACCESS_TOKEN}`
       }
     });
+    console.log(data);
+
     return data;
   } catch (e) {
     console.error(e);

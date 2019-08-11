@@ -4,7 +4,9 @@ const savedPictures = [];
 
 function savedPicturesReducer(state = savedPictures, { type, payload }) {
   switch (type) {
-    case savedTypes.SAVE_PICTURE: {
+    case savedTypes.ADD_SAVED_PICTURES: {
+      const already = state.findIndex(picture => picture.id === payload.id);
+      if (already !== -1) return state;
       const extendedSavedPictures = [...state, payload].reverse();
 
       return extendedSavedPictures;

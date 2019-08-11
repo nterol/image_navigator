@@ -1,19 +1,41 @@
-import { put, call, takeLatest } from "redux-saga/effects";
+import { put, call, all, fork, select, take } from "redux-saga/effects";
 
 import fetchImages from "../api";
-import { addPictures, failFetch } from "../actions";
+import { failFetch } from "../actions";
 import fetchTypes from "../types/fetchTypes";
+import savedTypes from "../types/savedTypes";
 
-function* workerSaga() {
-  console.log("worker");
-  const payload = yield call(fetchImages);
-  console.log("payload", payload);
-  if (!payload) yield put(failFetch());
-  else yield put(addPictures(payload));
+const getPage = ({ allPictures: { page } }) => page;
+
+const getPicture = ({ allPictures: { picturesList } }, id) => {
+  console.log("get picture", id);
+  return picturesList.filter(picture => picture.id === id)[0];
+};
+
+function* fetchSaga() {
+  while (true) {
+    yield take(fetchTypes.FETCH_IMAGES);
+    console.log("worker");
+    const page = yield select(getPage);
+    const payload = yield call(fetchImages, page);
+    console.log("payload", payload);
+    if (payload === undefined) yield put(failFetch());
+    else yield put({ type: fetchTypes.ADD_PICTURES, payload });
+  }
+}
+
+function* savePictureSaga() {
+  while (true) {
+    const { payload: id } = yield take(savedTypes.SAVE_PICTURE);
+
+    const payload = yield select(getPicture, id);
+
+    yield put({ type: savedTypes.ADD_SAVED_PICTURES, payload });
+  }
 }
 
 function* watcherSaga() {
-  yield takeLatest(fetchTypes.FETCH_IMAGES, workerSaga);
+  yield all([fork(fetchSaga), fork(savePictureSaga)]);
 }
 
 export default watcherSaga;

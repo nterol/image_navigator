@@ -1,15 +1,24 @@
 import fetchTypes from "../types/fetchTypes";
 
-const allPictures = { picturesList: [], error: false };
+const allPictures = { picturesList: [], error: false, page: 1 };
 
 function allPicturesReducer(state = allPictures, { type, payload }) {
   switch (type) {
     case fetchTypes.ADD_PICTURES: {
-      const newAllPictures = [...state, ...payload].reverse();
-      return {picturesList: newAllPictures, error: false};
+      const newAllPictures = [...new Set([...state.picturesList, ...payload])];
+
+      return {
+        picturesList: newAllPictures,
+        error: false,
+        page: state.page + 1
+      };
     }
     case fetchTypes.FETCH_FAIL: {
       return { ...state, error: true };
+    }
+
+    case fetchTypes.RESET_ERROR: {
+      return { ...state, error: false, page: allPictures.page };
     }
     default:
       return state;

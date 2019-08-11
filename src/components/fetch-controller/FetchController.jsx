@@ -1,59 +1,32 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 
+import { Container, ButtonController } from "./styles";
 import ControllerConnect from "./controllerConnect";
 
-const Container = styled.div`
-  position: fixed;
-  right: 8px;
-  padding: 16px;
-  display: flex;
-  flex-direction: row;
-`;
-
-const ButtonController = styled.button`
-  padding: 16px;
-  border: none;
-  background: cyan;
-  border-radius: 30px;
-  font-weight: 28px;
-`;
-
-const StopFetch = () => (
-  <span role="img" aria-label="fetch-stop">
-    ⏸
-  </span>
-);
-
-const StartFetch = () => (
-  <span role="img" aria-label="fetch-start">
-    ▶️
-  </span>
-);
-
-function RawFetchController({ fetchAPI, error }) {
+function RawFetchController({ fetchAPI, error, resetError }) {
   const [shouldFetch, setShouldFetch] = useState(true);
 
-  const stopInterval = interval => window.clearInterval(interval);
+  useEffect(() => {
+    fetchAPI();
+    console.log(shouldFetch);
+  }, [fetchAPI, shouldFetch]);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       fetchAPI();
-    }, 4000);
+    }, 8000);
 
     if (!shouldFetch || error) window.clearInterval(interval);
-    return () => stopInterval(interval);
+    return () => window.clearInterval(interval);
   }, [error, fetchAPI, shouldFetch]);
 
-  const handleClick = () => setShouldFetch(!shouldFetch);
-
-  // penser à lire l'article de dan sur ce genre d'UI sur son blog
+  const handleClick = () => {
+    setShouldFetch(!shouldFetch);
+  };
 
   return (
     <Container>
-      <ButtonController onClick={handleClick}>
-        {shouldFetch ? <StopFetch /> : <StartFetch />}
-      </ButtonController>
+      <ButtonController onClick={handleClick} shouldFetch={shouldFetch} />
     </Container>
   );
 }

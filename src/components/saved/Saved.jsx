@@ -5,12 +5,24 @@ import PictureList from "../picture-list/PictureList";
 import SavedConnect from "./savedConnect";
 
 const Container = styled.div`
+  width: 30%;
+  border-radius: 4px;
+  overflow: scroll;
   padding: 16px;
-  background: green;
+  background: linear-gradient(to bottom, #ee9ca7, #ffdde1);
+  display: flex;
+  flex-direction: column;
+
+  div {
+    margin-bottom: 8px;
+  }
+`;
+
+const H2 = styled.h2`
+  color: #fff;
 `;
 
 const NoSaved = styled.h2`
-  border: 1px solid blue;
   color: #fff;
   font-size: 18px;
 `;
@@ -18,10 +30,15 @@ const NoSaved = styled.h2`
 function RawSaved({ savedPictures, deletePicture }) {
   return (
     <Container>
+      <H2>Saved Pictures</H2>
       {savedPictures.length ? (
-        <PictureList pictureList={savedPictures} handleClick={deletePicture} />
+        <PictureList
+          type="saved"
+          pictureList={savedPictures}
+          handleClick={deletePicture}
+        />
       ) : (
-        <NoSaved>Aucune image sauvegardée pour le moment</NoSaved>
+        <NoSaved>No saved pictures at the moment</NoSaved>
       )}
     </Container>
   );

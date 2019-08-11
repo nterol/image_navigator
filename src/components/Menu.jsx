@@ -10,9 +10,13 @@ const Nav = styled.nav`
   z-index: 2;
 `;
 
+const H1 = styled.h1`
+  font-size: 30px;
+`;
+
 const Menu = () => (
   <Nav>
-    <h1>Image Navigator</h1>
+    <H1>Image Navigator</H1>
     <FetchController />
   </Nav>
 );

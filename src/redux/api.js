@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function fetchImages(page) {
-  console.log(page);
+  console.log(process.env.REACT_APP_ACCESS_TOKEN);
   try {
     const { data } = await axios({
       method: "get",
@@ -11,7 +11,6 @@ async function fetchImages(page) {
         Authorization: `Client-ID ${process.env.REACT_APP_ACCESS_TOKEN}`
       }
     });
-    console.log(data);
 
     return data;
   } catch (e) {

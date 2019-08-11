@@ -8,7 +8,6 @@ function RawFetchController({ fetchAPI, error, resetError }) {
 
   useEffect(() => {
     fetchAPI();
-    console.log(shouldFetch);
   }, [fetchAPI, shouldFetch]);
 
   useEffect(() => {

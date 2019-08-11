@@ -8,17 +8,16 @@ import savedTypes from "../types/savedTypes";
 const getPage = ({ allPictures: { page } }) => page;
 
 const getPicture = ({ allPictures: { picturesList } }, id) => {
-  console.log("get picture", id);
   return picturesList.filter(picture => picture.id === id)[0];
 };
 
 function* fetchSaga() {
   while (true) {
     yield take(fetchTypes.FETCH_IMAGES);
-    console.log("worker");
+
     const page = yield select(getPage);
     const payload = yield call(fetchImages, page);
-    console.log("payload", payload);
+
     if (payload === undefined) yield put(failFetch());
     else yield put({ type: fetchTypes.ADD_PICTURES, payload });
   }

@@ -25,8 +25,8 @@ const Grid = styled.div`
   }
 `;
 
-function RawGallery({ picturesList, error, savePicture }) {
-  const noPictures = error || !picturesList.length;
+function RawGallery({ picturesList, savePicture }) {
+  const noPictures = !picturesList.length;
   return (
     <Container>
       <h2>Latest Images</h2>

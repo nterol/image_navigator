@@ -2,8 +2,7 @@ import { connect } from "react-redux";
 
 import { savePicture } from "../../redux/actions";
 
-const mapState = ({ allPictures: { error, picturesList } }) => ({
-  error,
+const mapState = ({ allPictures: { picturesList } }) => ({
   picturesList
 });
 

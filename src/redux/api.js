@@ -1,7 +1,7 @@
 import axios from "axios";
 
 async function fetchImages(page) {
-  console.log("token", process.env.REACT_APP_ACCESS_TOKEN);
+  console.log("token", process.env);
   try {
     const { data } = await axios({
       method: "get",
